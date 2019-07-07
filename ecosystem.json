@@ -1,0 +1,21 @@
+{
+    "apps" : [{
+       "name" : "server",
+       "script" : "index.js",
+       "exp_backoff_restart_delay": 100,
+       "env": {
+         "NODE_ENV": "production"
+       }
+    }],
+    "deploy" : {
+      "production" : {
+        "user" : "zy",
+        "host" : ["39.108.54.85"],
+        "ref"  : "origin/master",
+        "repo" : "git@github.com:zyrepo/server.git",
+        "path" : "/home/zy/server",
+        "pre-deploy-local" : "echo 'This is a local executed command'",
+        "post-deploy" : "npm install;pm2 startOrRestart ecosystem.json"
+       }
+    }
+ }

@@ -1,0 +1,26 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "npm": "11.6.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "NODE_ENV=development supervisor index.js",
+    "deploy": "pm2 deploy ecosystem.json production --env production",
+    "deploy:setup": "pm2 deploy ecosystem.json production setup"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.7.0",
+    "koa-body": "^4.1.0",
+    "koa-logger": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "mongodb": "^3.1.13"
+  },
+  "devDependencies": {
+    "supervisor": "^0.12.0"
+  }
+}
