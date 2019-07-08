@@ -14,7 +14,7 @@ class TopicCRUD {
 
   insertTopic(topic = {}) {
     return new Promise(async (resolve, reject) => {
-      this.collection.insertOne(Object.assign(topic, {time: new Date}), (err, result) => {
+      this.collection.insertOne(Object.assign(topic, {createTime: new Date}), (err, result) => {
         if (err) throw err;
         console.log("insert topic is successed");
         resolve(result);
@@ -44,9 +44,10 @@ class TopicCRUD {
 
   updateTopic(query = {}, data = {}) {
     return new Promise(async (resolve, reject) => {
-      this.collection.updateOne(query,{$set: Object.assign(data, {time: new Date})}, (err, result) => {
+      this.collection.updateOne(query,{$set: Object.assign(data, {updateTime: new Date})}, (err, result) => {
         if (err) throw err;
         console.log("update topic success");
+        // console.log(result)
         resolve(result);
       });
     })

@@ -3,11 +3,15 @@ const { TopicCRUD } = require("../mongodb/topic");
 const ObjectId = require('mongodb').ObjectId
 const topic = new TopicCRUD();
 router.post("/topic", async ctx => {
-  const login = ctx.cookies.get("user") === "zhangyu" ? true : false;
-  if (login) {
+  const logged = ctx.cookies.get("user") === "zhangyu" ? true : false;
+  const author = ctx.cookies.get("user")
+  if (logged) {
     const res = await topic.insertTopic({
       title: ctx.request.body.title,
       text: ctx.request.body.text,
+      author,
+      like: 0,
+      comments: []
     });
 
     ctx.response.body = {
@@ -54,7 +58,6 @@ router.delete('/topic/:id', async (ctx) => {
 })
 
 router.put('/topic', async (ctx) => {
-  const id = ctx.params.id
   const data = ctx.request.body
   const query = {
     _id: ObjectId(data.id)

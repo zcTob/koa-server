@@ -7,6 +7,7 @@ const app = new Koa();
 const userRouter = require("./router/user");
 const topicRouter = require("./router/topic");
 const uploadRouter = require("./router/upload");
+const likeRouter = require('./router/like')
 const router = require("./router")
 app.use(static(path.join(__dirname, "./static")));
 app.use(logger());
@@ -29,6 +30,7 @@ app.use(async (ctx, next) => {
 app.use(userRouter.routes());
 app.use(topicRouter.routes());
 app.use(uploadRouter.routes());
+app.use(likeRouter.routes());
 app.use(router.allowedMethods());
 
 
