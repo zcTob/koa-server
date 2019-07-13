@@ -9,6 +9,7 @@ const topicRouter = require("./router/topic");
 const uploadRouter = require("./router/upload");
 const likeRouter = require('./router/like')
 const router = require("./router")
+const fs = require('fs')
 app.use(static(path.join(__dirname, "./static")));
 app.use(logger());
 app.use(koaBody({
@@ -27,10 +28,24 @@ app.use(async (ctx, next) => {
   ctx.set("Access-Control-Allow-Credentials", "true")
   await next();
 });
-app.use(userRouter.routes());
-app.use(topicRouter.routes());
-app.use(uploadRouter.routes());
-app.use(likeRouter.routes());
+
+fs.readdir('./router', (err, files) => {
+  if(err) throw err
+  console.log(files)
+  files.forEach((file) => {
+    if(file === 'index.js') {
+      return
+    }
+    app.use(require(`./router/${file}`).routes())
+  })
+})
+// fs.readFile(() => {
+
+// })
+// app.use(userRouter.routes());
+// app.use(topicRouter.routes());
+// app.use(uploadRouter.routes());
+// app.use(likeRouter.routes());
 app.use(router.allowedMethods());
 
 

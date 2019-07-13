@@ -42,9 +42,10 @@ class TopicCRUD {
     })
   }
 
-  updateTopic(query = {}, data = {}) {
+  updateTopic(query = {}, data = {}, opt) {
     return new Promise(async (resolve, reject) => {
-      this.collection.updateOne(query,{$set: Object.assign(data, {updateTime: new Date})}, (err, result) => {
+      console.log(opt)
+      this.collection.updateOne(query, opt?opt:{$set: Object.assign(data, {updateTime: new Date})}, (err, result) => {
         if (err) throw err;
         console.log("update topic success");
         // console.log(result)
