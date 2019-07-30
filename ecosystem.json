@@ -15,7 +15,7 @@
         "repo" : "git@github.com:zyrepo/koa-server.git",
         "path" : "/home/zy/server1",
         "pre-deploy-local" : "echo 'This is a local executed command'",
-        "post-deploy" : "npm install;pm2 startOrRestart ecosystem.json"
+        "post-deploy" : "yarn install;pm2 startOrRestart ecosystem.json"
        }
     }
  }
