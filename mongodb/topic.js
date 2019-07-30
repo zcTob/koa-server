@@ -34,7 +34,7 @@ class TopicCRUD {
 
   deleteTopic(query = {}) {
     return new Promise(async (resolve, reject) => {
-      this.collection.deleteOne(query, (err, result) => {
+      this.collection.updateOne(query, {$set: {deleted: true}}, (err, result) => {
         if (err) throw err;
         console.log("deleted topic success");
         resolve(result);

@@ -7,6 +7,7 @@ router.post("/topic", async ctx => {
   const author = ctx.cookies.get("user")
   if (logged) {
     const res = await topic.insertTopic({
+      deleted: false,
       title: ctx.request.body.title,
       text: ctx.request.body.text,
       author,
