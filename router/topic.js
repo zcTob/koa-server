@@ -67,6 +67,7 @@ router.put('/topic', async (ctx) => {
     title: data.title,
     text: data.text,
   }
+
   const result = await topic.updateTopic(query, newData)
   if (result.result.n === 1) {
     ctx.response.body = {
@@ -83,4 +84,26 @@ router.put('/topic', async (ctx) => {
 
 })
 
+router.put('/topic/:id', async (ctx) => {
+  const id = ctx.params.id
+  const query = {
+    _id: ObjectId(id)
+  }
+  const newData = {
+    deleted: false
+  }
+  const result = await topic.updateTopic(query, newData)
+  if (result.result.n === 1) {
+    ctx.response.body = {
+      code: 10000,
+      data: "更新成功"
+    }
+  } else {
+    ctx.status = 500
+    ctx.response.body = {
+      code: 10000,
+      data: "更新失败"
+    }
+  }
+})
 module.exports = router;
