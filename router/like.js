@@ -1,7 +1,7 @@
 const router = require('./index')
-const { TopicCRUD } = require("../mongodb/topic");
+const { TopicCRUD } = require("../mongodb/topic")
 const ObjectId = require('mongodb').ObjectId
-const topic = new TopicCRUD();
+const topic = new TopicCRUD()
 
 router.post('/like', async (ctx) => {
   const data = ctx.request.body
@@ -13,7 +13,7 @@ router.post('/like', async (ctx) => {
   }
 
   const result = await topic.updateTopic(query, newData)
-  console.log(result);
+  console.log(result)
   if (result.result.n === 1) {
     ctx.response.body = {
       code: 10000,
@@ -29,4 +29,4 @@ router.post('/like', async (ctx) => {
 
 })
 
-module.exports = router;
+module.exports = router

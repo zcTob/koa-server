@@ -8,7 +8,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_ENV=development supervisor index.js",
     "deploy": "pm2 deploy ecosystem.json production --env production",
-    "deploy:setup": "pm2 deploy ecosystem.json production setup"
+    "deploy:setup": "pm2 deploy ecosystem.json production setup",
+    "eslint": "eslint . --ext .js",
+    "eslint:fix": "eslint . --ext .js --fix"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +23,14 @@
     "mongodb": "^3.1.13"
   },
   "devDependencies": {
+    "eslint": "^6.1.0",
+    "husky": "^3.0.3",
     "supervisor": "^0.12.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run eslint",
+      "pre-push": "npm test"
+    }
   }
 }

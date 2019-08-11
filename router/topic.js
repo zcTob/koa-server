@@ -1,34 +1,34 @@
-const router = require('./index')
-const { TopicCRUD } = require("../mongodb/topic");
-const ObjectId = require('mongodb').ObjectId
-const topic = new TopicCRUD();
+const router = require("./index")
+const { TopicCRUD } = require("../mongodb/topic")
+const ObjectId = require("mongodb").ObjectId
+const topic = new TopicCRUD()
 router.post("/topic", async ctx => {
-  const logged = ctx.cookies.get("user") === "zhangyu" ? true : false;
+  const logged = ctx.cookies.get("user") === "zhangyu" ? true : false
   const author = ctx.cookies.get("user")
   if (logged) {
-    const res = await topic.insertTopic({
+    await topic.insertTopic({
       deleted: false,
       title: ctx.request.body.title,
       text: ctx.request.body.text,
       author,
       like: 0,
       comments: []
-    });
+    })
 
     ctx.response.body = {
       code: 10000,
-      msg: "文章发表成功"
-    };
+      data: "文章发表成功"
+    }
   } else {
-    ctx.status = 401;
+    ctx.status = 401
     ctx.response.body = {
       code: 10001,
-      msg: "请核验身份"
-    };
+      data: "请核验身份"
+    }
   }
-});
+})
 
-router.get('/topic', async ctx => {
+router.get("/topic", async ctx => {
   const data = await topic.findTopic()
   ctx.response.body = {
     code: 10000,
@@ -36,7 +36,7 @@ router.get('/topic', async ctx => {
   }
 })
 
-router.get('/topic/:id', async (ctx, next) => {
+router.get("/topic/:id", async (ctx) => {
   const id = ctx.params.id
   const data = await topic.findTopic({
     _id: ObjectId(id)
@@ -47,7 +47,7 @@ router.get('/topic/:id', async (ctx, next) => {
   }
 })
 
-router.delete('/topic/:id', async (ctx) => {
+router.delete("/topic/:id", async ctx => {
   const id = ctx.params.id
   await topic.deleteTopic({
     _id: ObjectId(id)
@@ -58,14 +58,14 @@ router.delete('/topic/:id', async (ctx) => {
   }
 })
 
-router.put('/topic', async (ctx) => {
+router.put("/topic", async ctx => {
   const data = ctx.request.body
   const query = {
     _id: ObjectId(data.id)
   }
   const newData = {
     title: data.title,
-    text: data.text,
+    text: data.text
   }
 
   const result = await topic.updateTopic(query, newData)
@@ -81,10 +81,9 @@ router.put('/topic', async (ctx) => {
       data: "更新失败"
     }
   }
-
 })
 
-router.put('/topic/:id', async (ctx) => {
+router.put("/topic/:id", async ctx => {
   const id = ctx.params.id
   const query = {
     _id: ObjectId(id)
@@ -106,4 +105,4 @@ router.put('/topic/:id', async (ctx) => {
     }
   }
 })
-module.exports = router;
+module.exports = router
