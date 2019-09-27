@@ -17,13 +17,13 @@ router.post("/login", async ctx => {
     })
     ctx.response.body = {
       code: 10000,
-      msg: '验证成功'
+      data: '验证成功'
     }
   } else {
     ctx.status = 401
     ctx.response.body = {
       code: 10001,
-      msg: '验证失败'
+      data: '验证失败'
     }
   }
 });
@@ -39,13 +39,13 @@ router.post('/register', async ctx => {
     if(insertStatus.n === 1) {
       ctx.response.body = {
         code: 10000,
-        msg: '恭喜，注册成功'
+        data: '恭喜，注册成功'
       }
     }
   } else {
     ctx.response.body = {
       code: 10001,
-      msg: '账号已被注册' 
+      data: '账号已被注册' 
     }
   }
 })

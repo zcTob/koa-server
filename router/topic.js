@@ -17,13 +17,13 @@ router.post("/topic", async ctx => {
 
     ctx.response.body = {
       code: 10000,
-      msg: "文章发表成功"
+      data: "文章发表成功"
     };
   } else {
     ctx.status = 401;
     ctx.response.body = {
       code: 10001,
-      msg: "请核验身份"
+      data: "请核验身份"
     };
   }
 });
