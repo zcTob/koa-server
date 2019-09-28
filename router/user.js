@@ -24,7 +24,7 @@ router.post("/login", async ctx => {
     ctx.status = 401
     ctx.response.body = {
       code: 10001,
-      dataa: "验证失败"
+      data: '验证失败'
     }
   }
 })
@@ -40,13 +40,13 @@ router.post("/register", async ctx => {
     if (insertStatus.n === 1) {
       ctx.response.body = {
         code: 10000,
-        data: "恭喜，注册成功"
+        data: '恭喜，注册成功'
       }
     }
   } else {
     ctx.response.body = {
       code: 10001,
-      data: "账号已被注册"
+      data: '账号已被注册' 
     }
   }
 })

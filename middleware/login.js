@@ -6,7 +6,7 @@ module.exports = async (ctx, next) => {
     ctx.status = 401
     ctx.response.body = {
       code: 10001,
-      msg: "请先登录"
+      data: '请先登录' 
     }
   }
 }
