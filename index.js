@@ -10,6 +10,8 @@ const uploadRouter = require("./router/upload");
 const likeRouter = require('./router/like')
 const router = require("./router")
 const fs = require('fs')
+
+
 app.use(static(path.join(__dirname, "./static")));
 app.use(logger());
 app.use(koaBody({
