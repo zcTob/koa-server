@@ -1,7 +1,6 @@
-
 module.exports = async (ctx, next) => {
-  const user = ctx.cookies.get('user')
-  if(user) {
+  const user = ctx.cookies.get("user")
+  if (user) {
     next()
   } else {
     ctx.status = 401

@@ -1,9 +1,9 @@
-const router = require('./index')
-const { TopicCRUD } = require("../mongodb/topic");
-const ObjectId = require('mongodb').ObjectId
-const topic = new TopicCRUD();
+const router = require("./index")
+const { TopicCRUD } = require("../mongodb/topic")
+const ObjectId = require("mongodb").ObjectId
+const topic = new TopicCRUD()
 
-router.post('/comments', async (ctx) => {
+router.post("/comments", async ctx => {
   const data = ctx.request.body
   console.log(data)
   const query = {
@@ -13,12 +13,10 @@ router.post('/comments', async (ctx) => {
     comments: data
   }
 
-
-
   const result = await topic.updateTopic(query, newData, {
     $push: newData
   })
-  console.log('result');
+  console.log("result")
   // console.log(result)
   if (result.result.ok === 1) {
     ctx.response.body = {
@@ -34,4 +32,4 @@ router.post('/comments', async (ctx) => {
   }
 })
 
-module.exports = router;
+module.exports = router

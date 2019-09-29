@@ -1,24 +1,22 @@
 const router = require('./index')
 const utils = require('../utils')
 
-const {
-  UserCRUD
-} = require("../mongodb/user");
+const { UserCRUD } = require("../mongodb/user")
 const config = require("../config")
-const user = new UserCRUD();
+const user = new UserCRUD()
 router.post("/login", async ctx => {
   const res = await user.findUser({ username: ctx.request.body.username, password: utils.enCrypto(ctx.request.body.password) });
   if (res.length >= 1) {
-    ctx.cookies.set('user', ctx.request.body.username, {
-      domain: config.domain, 
+    ctx.cookies.set("user", ctx.request.body.username, {
+      domain: config.domain,
       maxAge: 1000 * 60 * 60 * 24 * 30,
-      path: '/',
+      path: "/",
       httpOnly: false,
-      overwrite: false,
+      overwrite: false
     })
     ctx.response.body = {
       code: 10000,
-      data: '验证成功'
+      data: "验证成功"
     }
   } else {
     ctx.status = 401
@@ -27,10 +25,10 @@ router.post("/login", async ctx => {
       data: '验证失败'
     }
   }
-});
+})
 
-router.post('/register', async ctx => {
-  const {username, password} = ctx.request.body
+router.post("/register", async ctx => {
+  const { username, password } = ctx.request.body
   const res = await user.findUser({ username })
   if(res.length < 1) {
     const enCryptoPassword = utils.enCrypto(password)
@@ -39,7 +37,7 @@ router.post('/register', async ctx => {
       username,
       password: enCryptoPassword
     })
-    if(insertStatus.n === 1) {
+    if (insertStatus.n === 1) {
       ctx.response.body = {
         code: 10000,
         data: '恭喜，注册成功'
@@ -53,4 +51,4 @@ router.post('/register', async ctx => {
   }
 })
 
-module.exports = router;
+module.exports = router
